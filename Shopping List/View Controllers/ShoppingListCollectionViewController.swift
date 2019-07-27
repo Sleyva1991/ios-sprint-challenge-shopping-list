@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ShoppingListCollectionViewController: UICollectionViewController {
+class ShoppingListCollectionViewController: UICollectionViewController, ShoppingListCollectionViewCellDelegate {
     
     let shoppingListController = ShoppingListController()
 
@@ -53,7 +53,7 @@ class ShoppingListCollectionViewController: UICollectionViewController {
     
         let shoppingItem = shoppingListController.shoppingItems[indexPath.item]
         cell.shoppingItem = shoppingItem
-        cell.delegate = self as? ShoppingListCollectionViewCellDelegate
+        cell.delegate = self
         
     
         return cell

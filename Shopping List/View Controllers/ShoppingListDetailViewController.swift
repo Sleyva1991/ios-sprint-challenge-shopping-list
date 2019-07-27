@@ -19,7 +19,7 @@ class ShoppingListDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        updateViews()
     
     }
     @IBAction func sendOrderTapped(_ sender: UIButton) {
@@ -28,9 +28,7 @@ class ShoppingListDetailViewController: UIViewController {
     
     func updateViews() {
         guard let shoppingItem = shoppingItem else { return }
-        
-        title = shoppingItem.item
-        nameTextField.text = shoppingItem.item
+        detailLabel.text = "You currently have \(shoppingItem.item.count) item(s) in your shopping list."
     
     }
     

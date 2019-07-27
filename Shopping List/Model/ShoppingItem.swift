@@ -13,7 +13,7 @@ struct ShoppingItem: Codable, Equatable {
     var isAdded: Bool
     var imageData: Data
     
-    init(item: String, isAdded: Bool = false, imageData: Data) {
+    init(item: String, isAdded: Bool = true, imageData: Data) {
         self.isAdded  = isAdded
         self.item = item
         self.imageData = imageData
