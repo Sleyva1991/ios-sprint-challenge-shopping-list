@@ -10,6 +10,8 @@ import UIKit
 
 class ShoppingListCollectionViewCell: UICollectionViewCell {
     
+    weak var delegate: ShoppingListCollectionViewCellDelegate?
+    
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var shoppingLabel: UILabel!
     @IBOutlet weak var addedButton: UIButton!
@@ -27,6 +29,9 @@ class ShoppingListCollectionViewCell: UICollectionViewCell {
         shoppingLabel.text = shoppingItem?.item
     }
     
+    @IBAction func addedButtonPressed(_ sender: Any) {
+        delegate?.toggleHasBeenAdded(for: self)
+    }
     
     
 }

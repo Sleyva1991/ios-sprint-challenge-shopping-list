@@ -16,6 +16,7 @@
 		E820D46E22EB54D4006B33D2 /* ShoppingListCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E820D46D22EB54D4006B33D2 /* ShoppingListCollectionViewCell.swift */; };
 		E820D47222EB573A006B33D2 /* ShoppingListDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E820D47122EB573A006B33D2 /* ShoppingListDetailViewController.swift */; };
 		E820D47522EB5AE4006B33D2 /* ShoppingListController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E820D47422EB5AE4006B33D2 /* ShoppingListController.swift */; };
+		E820D47722EBD579006B33D2 /* ShoppingListCollectionViewCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E820D47622EBD579006B33D2 /* ShoppingListCollectionViewCellDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		E820D46D22EB54D4006B33D2 /* ShoppingListCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListCollectionViewCell.swift; sourceTree = "<group>"; };
 		E820D47122EB573A006B33D2 /* ShoppingListDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListDetailViewController.swift; sourceTree = "<group>"; };
 		E820D47422EB5AE4006B33D2 /* ShoppingListController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListController.swift; sourceTree = "<group>"; };
+		E820D47622EBD579006B33D2 /* ShoppingListCollectionViewCellDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingListCollectionViewCellDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +89,7 @@
 			isa = PBXGroup;
 			children = (
 				E820D46D22EB54D4006B33D2 /* ShoppingListCollectionViewCell.swift */,
+				E820D47622EBD579006B33D2 /* ShoppingListCollectionViewCellDelegate.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -188,6 +191,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4613E91221143BFC00E7FF73 /* AppDelegate.swift in Sources */,
+				E820D47722EBD579006B33D2 /* ShoppingListCollectionViewCellDelegate.swift in Sources */,
 				E820D47522EB5AE4006B33D2 /* ShoppingListController.swift in Sources */,
 				E820D46C22EB5396006B33D2 /* ShoppingListCollectionViewController.swift in Sources */,
 				E820D47222EB573A006B33D2 /* ShoppingListDetailViewController.swift in Sources */,
@@ -339,6 +343,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "Shopping List/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -357,6 +362,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXUQXR6S56;
 				INFOPLIST_FILE = "Shopping List/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

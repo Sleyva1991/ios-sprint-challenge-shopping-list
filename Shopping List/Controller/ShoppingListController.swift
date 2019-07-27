@@ -6,19 +6,34 @@
 //  Copyright © 2019 Lambda School. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 class ShoppingListController {
     
     var shoppingItems:[ShoppingItem] = []
-    
     let itemNames = ["Apple", "Grapes", "Milk", "Muffin", "Popcorn", "Soda", "Strawberries"]
     
-    func createShoppingItem(imageData: Data, item: String) {
-        let shoppingList = ShoppingItem(item: item, imageData: imageData)
-        shoppingItems.append(shoppingList)
+    init() {
+        for itemName in itemNames {
+            createShoppingItem(imageName: itemName, item: itemName)
+        }
+        //createShoppingItem(imageName: "Apple", item: "apple")
+        
+    }
+    func updateHasBeenAdded(shoppingItem: ShoppingItem) {
+        guard let index = shoppingItems.index(of: shoppingItem) else { return }
+        shoppingItems[index].isAdded.toggle()
         
         saveToPersistantStore()
+    }
+    
+    func createShoppingItem(imageName: String, item: String) {
+        if let imageData = UIImagePNGRepresentation(UIImage(named: imageName)!) {
+            let shoppingList = ShoppingItem(item: item, imageData: imageData)
+            shoppingItems.append(shoppingList)
+            
+            saveToPersistantStore()
+        }
     }
     
     func updateShoppingItem(shoppingList: ShoppingItem, imageData: Data, item: String ) {
@@ -70,5 +85,15 @@ private var shoppingListURL: URL? {
     let finalURL = documentsDirectory.appendingPathComponent("items.plist")
     return finalURL
 }
+    var addedItem: [ShoppingItem] {
+        let add = shoppingItems.filter { $0.isAdded == true}
+        return add
+    }
+    var addItem: [ShoppingItem] {
+        let added = shoppingItems.filter { $0.isAdded == false}
+        return added
+    }
+    
+    
 
 }

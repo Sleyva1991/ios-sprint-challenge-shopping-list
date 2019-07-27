@@ -9,6 +9,10 @@
 import UIKit
 
 class ShoppingListDetailViewController: UIViewController {
+    
+    var shoppingListController: ShoppingListController?
+    var shoppingItem: ShoppingItem?
+    
     @IBOutlet weak var detailLabel: UILabel!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var addressTextField: UITextField!
@@ -16,16 +20,29 @@ class ShoppingListDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+    
     }
     @IBAction func sendOrderTapped(_ sender: UIButton) {
             showAlert()
         }
-        func showAlert() {
+    
+    func updateViews() {
+        guard let shoppingItem = shoppingItem else { return }
+        
+        title = shoppingItem.item
+        nameTextField.text = shoppingItem.item
+    
+    }
+    
+    func showAlert() {
             let alert = UIAlertController(title: "'Shopping List' Would Like to Send You Notifications", message: "Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.", preferredStyle: .alert)
         
         let dontAllow = UIAlertAction(title: "Don't Allow", style: .cancel, handler: nil)
         let allow = UIAlertAction(title: "Allow", style: .default, handler: nil)
+            
+            alert.addAction(dontAllow)
+            alert.addAction(allow)
+        present(alert, animated: true, completion: nil)
         
     }
     

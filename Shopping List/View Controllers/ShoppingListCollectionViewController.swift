@@ -27,17 +27,32 @@ class ShoppingListCollectionViewController: UICollectionViewController {
             guard let addDetailVC = segue.destination as? ShoppingListDetailViewController,
                 let indexPath = collectionView?.indexPathsForSelectedItems?.first else { return }
             let shoppingItem = shoppingListController.shoppingItems[indexPath.item]
-            
-            addDetailVC.shopping
+
+            addDetailVC.shoppingListController = shoppingListController
+            addDetailVC.shoppingItem = shoppingItem
         }
-    }
+        }
  
 
     // MARK: UICollectionViewDataSource
-
-    override func numberOfSections(in collectionView: UICollectionView) -> Int {
-
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return shoppingListController.shoppingItems.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, titleForHeaderInSection section: Int) -> String? {
+        let added = shoppingListController.addedItem.isEmpty ? nil : "Added"
+        let add = shoppingListController.addItem.isEmpty ? nil : "Add"
+        
+        return section == 0 ? added : add
+    }
+    
+    func shoppingItemFor(indexPath: IndexPath) -> ShoppingItem {
+        if indexPath.section == 0 {
+            return shoppingListController.addedItem[indexPath.item]
+        } else {
+            return shoppingListController.addItem[indexPath.item]
+        }
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -49,7 +64,13 @@ class ShoppingListCollectionViewController: UICollectionViewController {
     
         return cell
     }
-
+    func toggleHasBeenAdded(for cell: ShoppingListCollectionViewCell) {
+        guard let indexPath = collectionView?.indexPath(for: cell) else { return }
+        let shoppingItem = shoppingItemFor(indexPath: indexPath)
+        shoppingListController.updateHasBeenAdded(shoppingItem: shoppingItem)
+        collectionView?.reloadData()
+        }
+    }
     // MARK: UICollectionViewDelegate
 
     /*
@@ -81,4 +102,3 @@ class ShoppingListCollectionViewController: UICollectionViewController {
     }
     */
 
-}
