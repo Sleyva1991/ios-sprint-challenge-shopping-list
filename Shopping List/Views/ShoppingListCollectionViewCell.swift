@@ -27,6 +27,11 @@ class ShoppingListCollectionViewCell: UICollectionViewCell {
         guard let shoppingItemData = shoppingItem?.imageData else { return }
         imageView.image = UIImage(data: shoppingItemData)
         shoppingLabel.text = shoppingItem?.item
+        if shoppingItem?.isAdded == true {
+            addedButton.setTitle("Add", for: .normal)
+        } else {
+            addedButton.setTitle("Added", for: .normal)
+        }
     }
     
     @IBAction func addedButtonPressed(_ sender: Any) {
