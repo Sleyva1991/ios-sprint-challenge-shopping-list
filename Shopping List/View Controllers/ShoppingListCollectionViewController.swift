@@ -8,13 +8,14 @@
 
 import UIKit
 
-class ShoppingListCollectionViewController: UICollectionViewController, ShoppingListCollectionViewCellDelegate {
+class ShoppingListCollectionViewController: UICollectionViewController {
     
     let shoppingListController = ShoppingListController()
+    let shoppingListDetailViewController = ShoppingListDetailViewController()
 
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         collectionView?.reloadData()
     }
 
@@ -24,14 +25,11 @@ class ShoppingListCollectionViewController: UICollectionViewController, Shopping
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == "OrderSegue" {
-            guard let addDetailVC = segue.destination as? ShoppingListDetailViewController,
-                let indexPath = collectionView?.indexPathsForSelectedItems?.first else { return }
-            let shoppingItem = shoppingListController.shoppingItems[indexPath.item]
-
+            guard let addDetailVC = segue.destination as? ShoppingListDetailViewController else { return }
             addDetailVC.shoppingListController = shoppingListController
-            addDetailVC.shoppingItem = shoppingItem
+            
         }
-        }
+    }
  
 
     // MARK: UICollectionViewDataSource
@@ -53,16 +51,24 @@ class ShoppingListCollectionViewController: UICollectionViewController, Shopping
     
         let shoppingItem = shoppingListController.shoppingItems[indexPath.item]
         cell.shoppingItem = shoppingItem
-        cell.delegate = self
+//        cell.delegate = self
         
     
         return cell
     }
-    func toggleHasBeenAdded(for cell: ShoppingListCollectionViewCell) {
-        guard let indexPath = collectionView?.indexPath(for: cell) else { return }
-        let shoppingItem = shoppingItemFor(indexPath: indexPath)
-        shoppingListController.updateHasBeenAdded(shoppingItem: shoppingItem)
-        collectionView?.reloadItems(at: [indexPath])
-        }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let item = shoppingListController.shoppingItems[indexPath.item]
+        shoppingListController.updateHasBeenAdded(shoppingItem: item)
+        collectionView.reloadItems(at: [indexPath])
+       
+    }
+//
+//    func toggleHasBeenAdded(for cell: ShoppingListCollectionViewCell) {
+//        guard let indexPath = collectionView?.indexPath(for: cell) else { return }
+//        let shoppingItem = shoppingItemFor(indexPath: indexPath)
+//        shoppingListController.updateHasBeenAdded(shoppingItem: shoppingItem)
+//        collectionView?.reloadItems(at: [indexPath])
+//        }
     }
 

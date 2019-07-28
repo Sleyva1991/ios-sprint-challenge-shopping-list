@@ -10,41 +10,36 @@ import UIKit
 
 class ShoppingListController {
     
-    var shoppingItems:[ShoppingItem] = []
-    let itemNames = ["Apple", "Grapes", "Milk", "Muffin", "Popcorn", "Soda", "Strawberries"]
+    var shoppingItems:[ShoppingItem] = [ShoppingItem(item: "Apple" , imageName: "Apple"),
+                                        ShoppingItem(item: "Grapes", imageName: "Grapes"),
+                                        ShoppingItem(item: "Milk", imageName: "Milk"),
+                                        ShoppingItem(item: "Popcorn", imageName: "Popcorn"),
+                                        ShoppingItem(item: "Soda", imageName: "Soda"),
+                                        ShoppingItem(item: "Strawberries", imageName: "Strawberries"),
+                                        ShoppingItem(item: "Muffin", imageName: "Muffin")]
     
     init() {
-        for itemName in itemNames {
-            createShoppingItem(imageName: itemName, item: itemName)
-        }
-        //createShoppingItem(imageName: "Apple", item: "apple")
-        
+        loadFromPersisrantStore()
     }
+    
     func updateHasBeenAdded(shoppingItem: ShoppingItem) {
         guard let index = shoppingItems.index(of: shoppingItem) else { return }
-        shoppingItems[index].isAdded.toggle()
+        shoppingItems[index].isAdded = !shoppingItems[index].isAdded
         
         saveToPersistantStore()
     }
     
-    func createShoppingItem(imageName: String, item: String) {
-        if let imageData = UIImagePNGRepresentation(UIImage(named: imageName)!) {
-            let shoppingList = ShoppingItem(item: item, imageData: imageData)
-            shoppingItems.append(shoppingList)
-            
-            saveToPersistantStore()
+    var selectedItems: Int {
+        var count = 0
+        for item in shoppingItems {
+            if item.isAdded == true {
+                count += 1
+            }
         }
+        return count
     }
     
-    func updateShoppingItem(shoppingList: ShoppingItem, imageData: Data, item: String ) {
-        guard let index = shoppingItems.index(of: shoppingList) else { return }
-        shoppingItems[index].imageData = imageData
-        shoppingItems[index].item = item
-        
-        saveToPersistantStore()
-    }
     
-
     
     // MARK: Persistance
     
@@ -84,16 +79,5 @@ private var shoppingListURL: URL? {
     
     let finalURL = documentsDirectory.appendingPathComponent("items.plist")
     return finalURL
-}
-    var addedItem: [ShoppingItem] {
-        let add = shoppingItems.filter { $0.isAdded == true}
-        return add
     }
-    var addItem: [ShoppingItem] {
-        let added = shoppingItems.filter { $0.isAdded == false}
-        return added
-    }
-    
-    
-
 }

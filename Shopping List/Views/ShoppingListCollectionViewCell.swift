@@ -24,13 +24,13 @@ class ShoppingListCollectionViewCell: UICollectionViewCell {
     }
     
     func updateViews() {
-        guard let shoppingItemData = shoppingItem?.imageData else { return }
-        imageView.image = UIImage(data: shoppingItemData)
-        shoppingLabel.text = shoppingItem?.item
-        if shoppingItem?.isAdded == true {
-            addedButton.setTitle("Add", for: .normal)
-        } else {
+        guard let shoppingItem = shoppingItem else { return }
+        imageView.image = shoppingItem.image
+        shoppingLabel.text = shoppingItem.item
+        if shoppingItem.isAdded {
             addedButton.setTitle("Added", for: .normal)
+        } else {
+            addedButton.setTitle("Add", for: .normal)
         }
     }
     
