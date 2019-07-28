@@ -39,45 +39,43 @@ class ShoppingListController {
         return count
     }
     
-    
-    
     // MARK: Persistance
     
-func saveToPersistantStore() {
-    guard let url = shoppingListURL else { return }
-    
-    let encoder = PropertyListEncoder()
-    do {
-        let shoppingListsData = try encoder.encode(shoppingItems)
-        try shoppingListsData.write(to: url)
-    } catch {
-        print(error)
-    }
-}
-
-func loadFromPersisrantStore() {
-    guard let url = shoppingListURL,
-        FileManager.default.fileExists(atPath: url.path) else { return }
-    
-    let decoder = PropertyListDecoder()
-    do {
-        let data = try Data(contentsOf: url)
-        let decodedShoppingLists = try decoder.decode([ShoppingItem].self, from: data)
-        shoppingItems = decodedShoppingLists
-    } catch {
-        print(error)
+    func saveToPersistantStore() {
+        guard let url = shoppingListURL else { return }
+        
+        let encoder = PropertyListEncoder()
+        do {
+            let shoppingListsData = try encoder.encode(shoppingItems)
+            try shoppingListsData.write(to: url)
+        } catch {
+            print(error)
+        }
     }
     
-}
-
-// MARK: - Properties
-
-private var shoppingListURL: URL? {
-    let fileManager = FileManager.default
-    guard let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
-        else{ return nil }
+    func loadFromPersisrantStore() {
+        guard let url = shoppingListURL,
+            FileManager.default.fileExists(atPath: url.path) else { return }
+        
+        let decoder = PropertyListDecoder()
+        do {
+            let data = try Data(contentsOf: url)
+            let decodedShoppingLists = try decoder.decode([ShoppingItem].self, from: data)
+            shoppingItems = decodedShoppingLists
+        } catch {
+            print(error)
+        }
+        
+    }
     
-    let finalURL = documentsDirectory.appendingPathComponent("items.plist")
-    return finalURL
+    // MARK: - Properties
+    
+    private var shoppingListURL: URL? {
+        let fileManager = FileManager.default
+        guard let documentsDirectory = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first
+            else{ return nil }
+        
+        let finalURL = documentsDirectory.appendingPathComponent("items.plist")
+        return finalURL
     }
 }

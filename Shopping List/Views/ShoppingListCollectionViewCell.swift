@@ -37,6 +37,4 @@ class ShoppingListCollectionViewCell: UICollectionViewCell {
     @IBAction func addedButtonPressed(_ sender: Any) {
         delegate?.toggleHasBeenAdded(for: self)
     }
-    
-    
 }

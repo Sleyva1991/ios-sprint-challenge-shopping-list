@@ -20,39 +20,27 @@ class ShoppingListDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
-    
+        
     }
     @IBAction func sendOrderTapped(_ sender: UIButton) {
-            showAlert()
-        }
+        showAlert()
+    }
     
     func updateViews() {
         guard let shoppingController = shoppingListController else { return }
         detailLabel.text = "You currently have \(shoppingController.selectedItems) item(s) in your shopping list."
-    
+        
     }
     
     func showAlert() {
-            let alert = UIAlertController(title: "'Shopping List' Would Like to Send You Notifications", message: "Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.", preferredStyle: .alert)
+        let alert = UIAlertController(title: "'Shopping List' Would Like to Send You Notifications", message: "Notifications may include alerts, sounds, and icon badges. These can be configured in Settings.", preferredStyle: .alert)
         
         let dontAllow = UIAlertAction(title: "Don't Allow", style: .cancel, handler: nil)
         let allow = UIAlertAction(title: "Allow", style: .default, handler: nil)
-            
-            alert.addAction(dontAllow)
-            alert.addAction(allow)
+        
+        alert.addAction(dontAllow)
+        alert.addAction(allow)
         present(alert, animated: true, completion: nil)
         
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
