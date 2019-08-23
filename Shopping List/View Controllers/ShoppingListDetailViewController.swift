@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class ShoppingListDetailViewController: UIViewController {
     
@@ -20,10 +21,25 @@ class ShoppingListDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         updateViews()
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge], completionHandler:  { didallow, error in
+            })
         
     }
     @IBAction func sendOrderTapped(_ sender: UIButton) {
         showAlert()
+        
+        let name = nameTextField.text
+        let address = addressTextField.text
+        
+        let alertBanner = UNMutableNotificationContent()
+        alertBanner.title = "Delivery for \(String(describing: name))!"
+        alertBanner.body = "Your shopping Item will be delivered to \(String(describing: address)) in 15 minutes!"
+        alertBanner.badge = 1
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
+        let request = UNNotificationRequest(identifier: "timerDone", content: alertBanner, trigger: trigger)
+        
+        UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
     func updateViews() {
